@@ -1,12 +1,16 @@
 c_compiler:
-- toolchain_c
+- vs2015
 cxx_compiler:
-- toolchain_cxx
+- vs2015
 fortran_compiler:
-- toolchain_fort
+- gfortran
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
 python:
-- '2.7'
+- '3.6'
+zip_keys:
+- - c_compiler
+  - cxx_compiler
+  - python
