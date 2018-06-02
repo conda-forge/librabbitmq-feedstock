@@ -1,9 +1,8 @@
-{%set name = "librabbitmq" %}
-{%set version = "2.0.0" %}
-{%set compress_type = "tar.gz" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "ffa2363a860ab5dcc3ce3703247e05e940c73d776c03a3f3f9deaf3cf43bb96c" %}
-{%set build_num = "1" %}
+{% set name = "librabbitmq" %}
+{% set version = "2.0.0" %}
+{% set compress_type = "tar.gz" %}
+{% set hash_type = "sha256" %}
+{% set hash_val = "ffa2363a860ab5dcc3ce3703247e05e940c73d776c03a3f3f9deaf3cf43bb96c" %}
 
 package:
   name: {{ name }}
@@ -11,22 +10,26 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.{{ compress_type }}
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
   {{ hash_type }}: {{ hash_val }}
 
 build:
-  skip: True  # [win or py3k]
-  number: {{ build_num }}
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
     - python
-    - setuptools
+    - pip
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}
 
   run:
     - python
+    - toolchain
     - amqp >=1.4.6
+    - six >=1.0.0
 
 test:
   imports:
