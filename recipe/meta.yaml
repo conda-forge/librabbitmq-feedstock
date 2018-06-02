@@ -21,9 +21,7 @@ requirements:
   build:
     - python
     - pip
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }}
+    - toolchain
 
   run:
     - python
